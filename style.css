@@ -67,6 +67,11 @@ body{
     margin-right: 5px;
 }
 
+.activeBtn{
+    background-color: #CCC;
+    font-weight: 700;
+}
+
 .nav h2{
     font-size: 24px;
     margin-top: 10px;
@@ -76,6 +81,81 @@ body{
 
 .addBtn{
     margin-top: 10px;
+    width: 100%;
+}
+
+.addBtn.inactive{
+    display: none;
+}
+
+.project__add{
+    padding: 10px;
+    display: none;
+}
+
+.project__add.active{
+    display: block;
+}
+
+#project__name{
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #AAA;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+.projectBtn{
+    cursor: pointer;
+    border: none;
+    width: 110px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.projectBtn:hover{
+    filter: brightness(90%);
+}
+
+.greenBtn{
+    background-color: #AAFFAA;
+}
+
+.pinkBtn{
+    background-color: #FFBEBE;
+}
+
+.project__details{
+    width: 900px;
+    padding: 20px 40px;
+    margin: 0 auto;
+}
+
+.page__title{
+    font-size: 32px;
+    color: #333;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.project__details .btn{
+    width: 100%;
+    padding-left: 10px;
+    margin-top: 10px;
+    background-color: #FFF;
+}
+
+.project__details .btn:hover{
+    background-color: #CCC;
 }
 
 .footer{

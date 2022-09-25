@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
     <script src="https://kit.fontawesome.com/c715dd7864.js" crossorigin="anonymous"></script>
+    <script src="./src/UI.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -19,17 +20,22 @@
     <main class="main">
             <nav class="nav">
                 <div class="project__timeline">
-                    <button class="btn"><i class="fa-solid fa-inbox" aria-hidden="true"></i> Inbox</button>
-                    <button class="btn"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i> Today</button>
-                    <button class="btn"><i class="fa-solid fa-calendar-week" aria-hidden="true"></i> This week</button>
+                    <button class="btn inboxBtn"><i class="fa-solid fa-inbox" aria-hidden="true"></i> Inbox</button>
+                    <button class="btn todayBtn"><i class="fa-solid fa-calendar-day" aria-hidden="true"></i> Today</button>
+                    <button class="btn weekBtn"><i class="fa-solid fa-calendar-week" aria-hidden="true"></i> This week</button>
                 </div>
                 <h2>Projects</h2>
                 <div class="projects__list"></div>
                 <button class="btn addBtn"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add Project</button>
+                <div class="project__add">
+                    <input type="text" name="project__name" id="project__name">
+                    <div class="buttons">
+                        <button class="projectBtn greenBtn">Add</button>
+                        <button class="projectBtn pinkBtn">Cancel</button>
+                    </div>
+                </div>
             </nav>
-            <div class="project__details">
-
-            </div>
+            <div class="project__details" id="project__details"></div>
     </main>
     <footer class="footer">
         <p>Copyright &copy; 2022 Utkarsh</p>
