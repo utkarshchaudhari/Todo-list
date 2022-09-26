@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
     <script src="https://kit.fontawesome.com/c715dd7864.js" crossorigin="anonymous"></script>
-    <script src="./src/UI.js" defer></script>
+    <script src="./src/UI.js" type="module" defer></script>
 </head>
 <body>
     <header class="header">
@@ -27,11 +27,11 @@
                 <h2>Projects</h2>
                 <div class="projects__list"></div>
                 <button class="btn addBtn"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add Project</button>
-                <div class="project__add">
+                <div class="project__add input__options">
                     <input type="text" name="project__name" id="project__name">
                     <div class="buttons">
-                        <button class="projectBtn greenBtn">Add</button>
-                        <button class="projectBtn pinkBtn">Cancel</button>
+                        <button class="inputBtn greenBtn">Add</button>
+                        <button class="inputBtn pinkBtn">Cancel</button>
                     </div>
                 </div>
             </nav>

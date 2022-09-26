@@ -1,3 +1,4 @@
+import Task from "./Task.js";
 const inboxBtn = document.querySelector('.inboxBtn');
 const todayBtn = document.querySelector('.todayBtn');
 const weekBtn = document.querySelector('.weekBtn');
@@ -6,7 +7,8 @@ const addOptions = document.querySelector('.project__add');
 const cancelBtn = document.querySelector('.pinkBtn');
 const details = document.getElementById("project__details");
 
-function inboxContent(){
+function inboxContent() {
+    const tasks = [];
     const title = document.createElement("h1");
     title.classList.add("page__title");
     title.textContent = "Inbox";
@@ -16,16 +18,57 @@ function inboxContent(){
     list.id = "tasks__lists";
 
     const button = document.createElement("button");
-    button.classList.add("btn");
+    button.classList.add("btn", "addTask");
     button.innerHTML += `<i class="fa-solid fa-plus" aria-hidden="true"></i> Add Task`;
+
+    const taskAdd = document.createElement('div');
+    taskAdd.classList.add('task__add', 'input__options');
+
+    const input = document.createElement('INPUT');
+    input.setAttribute('type', 'text');
+    input.name = "task__name";
+    input.id = "task__name";
+
+    const buttons = document.createElement('div');
+    buttons.classList.add('buttons');
+
+    const addButton = document.createElement("button");
+    addButton.classList.add("inputBtn", "greenBtn");
+    addButton.textContent = "Add";
+
+    const cancelButton = document.createElement("button");
+    cancelButton.classList.add("inputBtn", "pinkBtn");
+    cancelButton.textContent = "Cancel";
+
+    buttons.appendChild(addButton);
+    buttons.appendChild(cancelButton);
+    taskAdd.appendChild(input);
+    taskAdd.appendChild(buttons);
+
+    button.addEventListener('click', () => {
+        button.classList.add('inactive');
+        taskAdd.classList.add('active');
+    });
+    addButton.addEventListener('click', () => {
+        if (input.value === "") return alert("Please enter task name.");
+        else{
+            const task = new Task(input.value);
+            tasks.push(task);
+        }
+    });
+    cancelButton.addEventListener('click', () => {
+        taskAdd.classList.remove('active');
+        button.classList.remove('inactive');
+    });
 
     details.textContent = "";
     details.appendChild(title);
     details.appendChild(list);
     details.appendChild(button);
+    details.appendChild(taskAdd);
 }
 
-function todayContent(){
+function todayContent() {
     const title = document.createElement("h1");
     title.classList.add("page__title");
     title.textContent = "Today";
@@ -39,7 +82,7 @@ function todayContent(){
     details.appendChild(list);
 }
 
-function weekContent(){
+function weekContent() {
     const title = document.createElement("h1");
     title.classList.add("page__title");
     title.textContent = "This week";
@@ -64,8 +107,8 @@ cancelBtn.addEventListener('click', () => {
 });
 
 inboxBtn.addEventListener('click', () => {
-    if(inboxBtn.classList.contains('activeBtn')) return;
-    else{
+    if (inboxBtn.classList.contains('activeBtn')) return;
+    else {
         inboxContent();
         inboxBtn.classList.add('activeBtn');
         todayBtn.classList.remove('activeBtn');
@@ -74,8 +117,8 @@ inboxBtn.addEventListener('click', () => {
 });
 
 todayBtn.addEventListener('click', () => {
-    if(todayBtn.classList.contains('activeBtn')) return;
-    else{
+    if (todayBtn.classList.contains('activeBtn')) return;
+    else {
         todayContent();
         todayBtn.classList.add('activeBtn');
         inboxBtn.classList.remove('activeBtn');
@@ -84,8 +127,8 @@ todayBtn.addEventListener('click', () => {
 });
 
 weekBtn.addEventListener('click', () => {
-    if(weekBtn.classList.contains('activeBtn')) return;
-    else{
+    if (weekBtn.classList.contains('activeBtn')) return;
+    else {
         weekContent();
         weekBtn.classList.add('activeBtn');
         inboxBtn.classList.remove('activeBtn');
@@ -93,7 +136,7 @@ weekBtn.addEventListener('click', () => {
     }
 });
 
-function run(){
+function run() {
     inboxContent();
     inboxBtn.classList.add('activeBtn');
 }
