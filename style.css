@@ -159,6 +159,50 @@ input[type='text']{
     background-color: #CCC;
 }
 
+.task__btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    background-color: #EEE;
+    padding: 10px;
+}
+
+.task__btn:hover{
+    background-color: #CCC;
+}
+
+.task__btn p{
+    font-size: 16px;
+}
+
+.left__panel{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.left__panel i{
+    margin-right: 8px;
+}
+
+.right__panel{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.right__panel i{
+    margin-left: 8px;
+    visibility: hidden;
+}
+
+.task__btn:hover .right__panel i{
+    visibility: visible;
+}
+
 .footer{
     position: absolute;
     bottom: 0;

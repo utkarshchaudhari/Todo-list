@@ -6,9 +6,9 @@ const addProject = document.querySelector('.addBtn');
 const addOptions = document.querySelector('.project__add');
 const cancelBtn = document.querySelector('.pinkBtn');
 const details = document.getElementById("project__details");
+const tasks = [];
 
 function inboxContent() {
-    const tasks = [];
     const title = document.createElement("h1");
     title.classList.add("page__title");
     title.textContent = "Inbox";
@@ -54,6 +54,10 @@ function inboxContent() {
         else{
             const task = new Task(input.value);
             tasks.push(task);
+            displayTasks(list, task);
+            input.value = '';
+            taskAdd.classList.remove('active');
+            button.classList.remove('inactive');
         }
     });
     cancelButton.addEventListener('click', () => {
@@ -66,6 +70,30 @@ function inboxContent() {
     details.appendChild(list);
     details.appendChild(button);
     details.appendChild(taskAdd);
+}
+
+function displayTasks(list, task){
+    const taskBtn = document.createElement('button');
+    taskBtn.classList.add('task__btn');
+
+    const leftPanel = document.createElement('div');
+    leftPanel.classList.add('left__panel');
+    const title = document.createElement('p');
+    title.textContent = task.getTitle();
+    leftPanel.innerHTML += `<i class="fa-regular fa-circle" aria-hidden="true"></i>`;
+    leftPanel.appendChild(title);
+
+    const rightPanel = document.createElement('div');
+    rightPanel.classList.add('right__panel');
+    const date = document.createElement('p');
+    date.textContent = task.getDuedate();
+    rightPanel.appendChild(date);
+    rightPanel.innerHTML += `<i class="fa-solid fa-times" aria-hidden="true"></i>`;
+
+
+    taskBtn.appendChild(leftPanel);
+    taskBtn.appendChild(rightPanel);
+    list.appendChild(taskBtn);
 }
 
 function todayContent() {
@@ -142,3 +170,4 @@ function run() {
 }
 
 run();
+
