@@ -80,8 +80,36 @@ function displayTasks(list, task){
     leftPanel.classList.add('left__panel');
     const title = document.createElement('p');
     title.textContent = task.getTitle();
+    const titleInput = document.createElement('INPUT');
+    titleInput.setAttribute('type', 'text');
+    titleInput.name = "task__title";
+    titleInput.id = "task__title";
+    titleInput.classList.add('inactive');
     leftPanel.innerHTML += `<i class="fa-regular fa-circle" aria-hidden="true"></i>`;
     leftPanel.appendChild(title);
+    leftPanel.appendChild(titleInput);
+
+    title.addEventListener('click', () => {
+        title.classList.add('inactive');
+        titleInput.classList.remove('inactive');
+        titleInput.value = task.getTitle();
+    });
+
+    titleInput.addEventListener('keydown', (e) => {
+        const titles = [];
+        tasks.forEach((task) => titles.push(task.title));
+
+        if (e.key === 'Enter') {
+            if (titleInput.value === "") alert("Task name can't be empty");
+            else if (titles.includes(titleInput.value)) alert("Task names must be different");
+            else {
+                task.setTitle(titleInput.value);
+                title.textContent = titleInput.value;
+                titleInput.classList.add('inactive');
+                title.classList.remove('inactive');
+            }
+        }
+    });
 
     const rightPanel = document.createElement('div');
     rightPanel.classList.add('right__panel');

@@ -178,6 +178,11 @@ input[type='text']{
     font-size: 16px;
 }
 
+.task__btn input[type='text']{
+    margin: 0;
+    padding: 0 4px;
+}
+
 .left__panel{
     cursor: pointer;
     display: flex;
