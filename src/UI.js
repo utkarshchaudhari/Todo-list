@@ -85,7 +85,10 @@ function displayTasks(list, task){
     titleInput.name = "task__title";
     titleInput.id = "task__title";
     titleInput.classList.add('inactive');
-    leftPanel.innerHTML += `<i class="fa-regular fa-circle" aria-hidden="true"></i>`;
+    const oIcon = document.createElement('i');
+    oIcon.classList.add('fa-regular', 'fa-circle');
+    oIcon.setAttribute('aria-hidden', 'true');
+    leftPanel.appendChild(oIcon);
     leftPanel.appendChild(title);
     leftPanel.appendChild(titleInput);
 
@@ -139,7 +142,15 @@ function displayTasks(list, task){
         date.classList.remove('inactive');
     });
 
+    xIcon.addEventListener('click', () => removeTask());
+    oIcon.addEventListener('click', () => removeTask());
 
+    function removeTask() {
+        const index = tasks.findIndex(tk => tk === task);
+        tasks.splice(index, 1);
+        list.removeChild(taskBtn);
+    }
+    
     taskBtn.appendChild(leftPanel);
     taskBtn.appendChild(rightPanel);
     list.appendChild(taskBtn);
