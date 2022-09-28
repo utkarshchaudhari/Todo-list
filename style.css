@@ -208,6 +208,15 @@ input[type='text']{
     visibility: visible;
 }
 
+input[type='date']{
+    border: 1px solid #AAA;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    margin: 0;
+    padding: 0 4px;
+}
+
 .footer{
     position: absolute;
     bottom: 0;

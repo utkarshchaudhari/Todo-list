@@ -115,8 +115,29 @@ function displayTasks(list, task){
     rightPanel.classList.add('right__panel');
     const date = document.createElement('p');
     date.textContent = task.getDuedate();
+    const dateInput = document.createElement('INPUT');
+    dateInput.setAttribute('type', 'date');
+    dateInput.name = "task__duedate";
+    dateInput.id = "task__duedate";
+    dateInput.classList.add('inactive');
+    const xIcon = document.createElement('i');
+    xIcon.classList.add('fa-solid', 'fa-times');
+    xIcon.setAttribute('aria-hidden', 'true');
     rightPanel.appendChild(date);
-    rightPanel.innerHTML += `<i class="fa-solid fa-times" aria-hidden="true"></i>`;
+    rightPanel.appendChild(dateInput);
+    rightPanel.appendChild(xIcon);
+
+    date.addEventListener('click', () => {
+        date.classList.add('inactive');
+        dateInput.classList.remove('inactive');
+    });
+
+    dateInput.addEventListener('input', () => {
+        task.setDuedate(dateInput.value);
+        date.textContent = dateInput.value;
+        dateInput.classList.add('inactive');
+        date.classList.remove('inactive');
+    });
 
 
     taskBtn.appendChild(leftPanel);
