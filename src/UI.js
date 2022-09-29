@@ -165,13 +165,9 @@ function todayContent() {
     list.classList.add("tasks__lists");
     list.id = "tasks__lists";
 
-    const date = new Date();
-    const monthFormatted = date.getMonth()+1 < 10 ? `0${date.getMonth()+1}` : date.getMonth()+1;
-    const dayFormatted = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    const dateFormatted = `${date.getFullYear()}-${monthFormatted}-${dayFormatted}`;
-
+    const date = getFormattedDate(new Date());
     tasks.forEach((task) => {
-        if (task.dueDate === dateFormatted) displayTasks(list, task);   
+        if (task.dueDate === date) displayTasks(list, task);   
     });
 
     details.textContent = "";
@@ -188,9 +184,26 @@ function weekContent() {
     list.classList.add("tasks__lists");
     list.id = "tasks__lists";
 
+    const weekDates = [];
+    const date = new Date();
+    
+    for (let i = 0; i <=6; i++){
+        weekDates.push(getFormattedDate(new Date(date.setDate(date.getDate() - date.getDay() + i))));
+    }
+    
+    tasks.forEach((task) => {
+        if (weekDates.includes(task.dueDate)) displayTasks(list, task);   
+    });
+
     details.textContent = "";
     details.appendChild(title);
     details.appendChild(list);
+}
+
+function getFormattedDate(date){
+    const monthFormatted = date.getMonth()+1 < 10 ? `0${date.getMonth()+1}` : date.getMonth()+1;
+    const dayFormatted = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    return `${date.getFullYear()}-${monthFormatted}-${dayFormatted}`;
 }
 
 addProject.addEventListener('click', () => {
