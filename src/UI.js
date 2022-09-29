@@ -165,6 +165,15 @@ function todayContent() {
     list.classList.add("tasks__lists");
     list.id = "tasks__lists";
 
+    const date = new Date();
+    const monthFormatted = date.getMonth()+1 < 10 ? `0${date.getMonth()+1}` : date.getMonth()+1;
+    const dayFormatted = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    const dateFormatted = `${date.getFullYear()}-${monthFormatted}-${dayFormatted}`;
+
+    tasks.forEach((task) => {
+        if (task.dueDate === dateFormatted) displayTasks(list, task);   
+    });
+
     details.textContent = "";
     details.appendChild(title);
     details.appendChild(list);
