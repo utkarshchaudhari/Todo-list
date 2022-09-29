@@ -65,6 +65,8 @@ function inboxContent() {
         button.classList.remove('inactive');
     });
 
+    tasks.forEach((task) => displayTasks(list, task));
+
     details.textContent = "";
     details.appendChild(title);
     details.appendChild(list);
