@@ -80,6 +80,16 @@ body{
     color: #333;
 }
 
+.projects__list .btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn:hover .right__panel i{
+    visibility: visible;
+}
+
 .addBtn{
     margin-top: 10px;
     width: 100%;

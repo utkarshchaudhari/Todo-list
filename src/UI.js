@@ -4,14 +4,16 @@ const todayBtn = document.querySelector('.todayBtn');
 const weekBtn = document.querySelector('.weekBtn');
 const addProject = document.querySelector('.addBtn');
 const addOptions = document.querySelector('.project__add');
+const addBtn = document.querySelector('.greenBtn');
 const cancelBtn = document.querySelector('.pinkBtn');
 const details = document.getElementById("project__details");
 const tasks = [];
+const projects = [];
 
-function inboxContent() {
+function content(header, tk) {
     const title = document.createElement("h1");
     title.classList.add("page__title");
-    title.textContent = "Inbox";
+    title.textContent = header;
 
     const list = document.createElement("div");
     list.classList.add("tasks__lists");
@@ -53,7 +55,7 @@ function inboxContent() {
         if (input.value === "") return alert("Please enter task name.");
         else{
             const task = new Task(input.value);
-            tasks.push(task);
+            tk.push(task);
             displayTasks(list, task);
             input.value = '';
             taskAdd.classList.remove('active');
@@ -65,7 +67,7 @@ function inboxContent() {
         button.classList.remove('inactive');
     });
 
-    tasks.forEach((task) => displayTasks(list, task));
+    tk.forEach((task) => displayTasks(list, task));
 
     details.textContent = "";
     details.appendChild(title);
@@ -74,7 +76,7 @@ function inboxContent() {
     details.appendChild(taskAdd);
 }
 
-function displayTasks(list, task){
+function displayTasks(list, task, tk=tasks){
     const taskBtn = document.createElement('button');
     taskBtn.classList.add('task__btn');
 
@@ -102,8 +104,7 @@ function displayTasks(list, task){
 
     titleInput.addEventListener('keydown', (e) => {
         const titles = [];
-        tasks.forEach((task) => titles.push(task.title));
-
+        tk.forEach((task) => titles.push(task.title));
         if (e.key === 'Enter') {
             if (titleInput.value === "") alert("Task name can't be empty");
             else if (titles.includes(titleInput.value)) alert("Task names must be different");
@@ -148,8 +149,8 @@ function displayTasks(list, task){
     oIcon.addEventListener('click', () => removeTask());
 
     function removeTask() {
-        const index = tasks.findIndex(tk => tk === task);
-        tasks.splice(index, 1);
+        const index = tk.findIndex(tk => tk === task);
+        tk.splice(index, 1);
         list.removeChild(taskBtn);
     }
     
@@ -213,43 +214,116 @@ addProject.addEventListener('click', () => {
     addOptions.classList.add('active');
 });
 
+addBtn.addEventListener('click', () => {
+    const projectName = document.getElementById('project__name');
+    const list = document.querySelector('.projects__list');
+
+    if (projectName.value === "") alert("Project name can't be empty");
+    else if (projects.includes(projectName.value)) alert("Project names must be different");
+    else {
+        projects.push(projectName.value);
+        displayProjects(list, projectName.value);
+        projectName.value = "";
+        addProject.classList.remove('inactive');
+        addOptions.classList.remove('active');
+    }
+});
+
 cancelBtn.addEventListener('click', () => {
     addProject.classList.remove('inactive');
     addOptions.classList.remove('active');
 });
 
+function displayProjects(list, project){
+    const projectTasks = [];
+
+    const projectBtn = document.createElement('button');
+    projectBtn.classList.add('btn', 'projectBtn');
+
+    const leftPanel = document.createElement('div');
+    leftPanel.classList.add('left__panel');
+    const title = document.createElement('p');
+    title.textContent = project;
+    const icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-list-check');
+    icon.setAttribute('aria-hidden', 'true');
+    leftPanel.appendChild(icon);
+    leftPanel.appendChild(title);
+
+    const rightPanel = document.createElement('div');
+    rightPanel.classList.add('right__panel');
+    const xIcon = document.createElement('i');
+    xIcon.classList.add('fa-solid', 'fa-times');
+    xIcon.setAttribute('aria-hidden', 'true');
+    rightPanel.appendChild(xIcon);
+
+    xIcon.addEventListener('click', () => {
+        const index = projects.findIndex(proj => proj === project);
+        projects.splice(index, 1);
+        list.removeChild(projectBtn);
+    });
+    
+    projectBtn.appendChild(leftPanel);
+    projectBtn.appendChild(rightPanel);
+    list.appendChild(projectBtn);
+
+    projectBtn.addEventListener('click', () => {
+        if (projectBtn.classList.contains('activeBtn')) return;
+        else {
+            document.querySelectorAll('.projectBtn').forEach(btn => btn.classList.remove('activeBtn'));
+            content(project, projectTasks);
+            projectBtn.classList.add('activeBtn');
+            todayBtn.classList.remove('activeBtn');
+            inboxBtn.classList.remove('activeBtn');
+            weekBtn.classList.remove('activeBtn');
+        }
+    });
+}
+
 inboxBtn.addEventListener('click', () => {
+    const projectBtn = document.querySelectorAll('.projectBtn');
     if (inboxBtn.classList.contains('activeBtn')) return;
     else {
-        inboxContent();
+        content('Inbox', tasks);
         inboxBtn.classList.add('activeBtn');
         todayBtn.classList.remove('activeBtn');
         weekBtn.classList.remove('activeBtn');
+        if(projectBtn.length > 0) {
+            projectBtn.forEach(btn => btn.classList.remove('activeBtn'));
+        }
     }
 });
 
 todayBtn.addEventListener('click', () => {
+    const projectBtn = document.querySelectorAll('.projectBtn');
     if (todayBtn.classList.contains('activeBtn')) return;
     else {
         todayContent();
         todayBtn.classList.add('activeBtn');
         inboxBtn.classList.remove('activeBtn');
         weekBtn.classList.remove('activeBtn');
+        if(projectBtn.length > 0) {
+            projectBtn.forEach(btn => btn.classList.remove('activeBtn'));
+        }
     }
 });
 
 weekBtn.addEventListener('click', () => {
+    const projectBtn = document.querySelectorAll('.projectBtn');
     if (weekBtn.classList.contains('activeBtn')) return;
     else {
         weekContent();
         weekBtn.classList.add('activeBtn');
         inboxBtn.classList.remove('activeBtn');
         todayBtn.classList.remove('activeBtn');
+        if(projectBtn.length > 0) {
+            projectBtn.forEach(btn => btn.classList.remove('activeBtn'));
+        }
     }
 });
 
 function run() {
-    inboxContent();
+    content('Inbox', tasks);
     inboxBtn.classList.add('activeBtn');
 }
 
